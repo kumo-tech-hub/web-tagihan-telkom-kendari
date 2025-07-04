@@ -5,42 +5,9 @@
 <div class="page-content">
     <!-- Tombol Add Product -->
     <div class="mb-3">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+        <a href="/products/create" class="btn btn-primary">
             <i class="bi bi-plus-circle"></i> Add Product
-        </button>
-    </div>
-
-    <!-- Modal Add Product -->
-    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="productName" class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="productName" name="product_name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="productStock" class="form-label">Stock Status</label>
-                            <select class="form-select" id="productStock" name="stock_status" required>
-                                <option value="">-- Select Status --</option>
-                                <option value="available">Available</option>
-                                <option value="out">Out of Stock</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="productDesc" class="form-label">Description</label>
-                            <textarea class="form-control" id="productDesc" name="description"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Product</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+        </a>
     </div>
 
     <!-- Table Product List (contoh statis) -->
@@ -50,32 +17,45 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>Name</th>
-                        <th>Stock Status</th>
-                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Deskripsi</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Contoh data statis, ganti dengan loop data dari backend -->
-                    <tr>
-                        <td>Product 1</td>
-                        <td><span class="badge bg-success">Available</span></td>
-                        <td>Produk contoh tersedia</td>
-                        <td>
-                            <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i> Edit</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Product 2</td>
-                        <td><span class="badge bg-danger">Out of Stock</span></td>
-                        <td>Produk contoh habis</td>
-                        <td>
-                            <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i> Edit</button>
-                        </td>
-                    </tr>
+                    @php
+                        $no = 1;
+                    @endphp
+                    @foreach ($products as $product)
+                        <tr>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $product->name }}</td>
+                            <td>Rp. {{ number_format($product->price, 0, ',', '.') }}</td>
+                            <td>{{ $product->description }}</td>
+                            <td>
+                                <span class="badge {{ $product->status ? 'bg-success' : 'bg-danger' }}">
+                                    {{ $product->status ? 'Available' : 'Out of Stock' }}
+                                </span>
+                            </td>
+                            <td class="d-flex gap-2 justify-content-center align-items-center">
+                                <a href="/products/edit/{{ $product->id }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i> Edit</a>
+                                <form action="/products/delete/{{ $product->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Delete</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                   
                 </tbody>
             </table>
+            <div class="mt-3">
+                {{ $products->links() }}
+            </div>
         </div>
     </div>
 </div>
