@@ -15,51 +15,50 @@
                 <li class="sidebar-title">Menu</li>
 
                 <li class="sidebar-item active">
-                    <a href="/
-                    " class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
+                    <a href="/" class='sidebar-link'>
+                        <i class="bi bi-speedometer2"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="{{ route('managers.index') }}" class='sidebar-link'>
-                        <i class="bi bi-person-badge"></i>
+                        <i class="bi bi-person-badge-fill"></i>
                         <span>Account Manager</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="{{ route('contracts.list') }}" class='sidebar-link'>
-                        <i class="bi bi-file-earmark-text"></i>
+                        <i class="bi bi-file-earmark-text-fill"></i>
                         <span>Contract</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="{{ route('customer.index') }}" class='sidebar-link'>
-                        <i class="bi bi-file-earmark-text"></i>
+                        <i class="bi bi-people-fill"></i>
                         <span>Customer</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="{{ route('products.index') }}" class='sidebar-link'>
-                        <i class="bi bi-box-seam"></i>
+                        <i class="bi bi-box-seam-fill"></i>
                         <span>Product</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="{{ route('email.manual') }}" class='sidebar-link'>
-                        <i class="bi bi-envelope-paper"></i>
+                        <i class="bi bi-envelope-fill"></i>
                         <span>Email Manually</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="{{ route('users.index') }}" class='sidebar-link'>
-                        <i class="bi bi-people"></i>
+                        <i class="bi bi-person-circle"></i>
                         <span>User</span>
                     </a>
                 </li>
