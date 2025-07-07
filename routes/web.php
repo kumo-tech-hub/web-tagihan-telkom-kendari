@@ -11,6 +11,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckRole;
 
+<<<<<<< HEAD
 
 Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified',CheckRole::class.':admin'])->name('dashboard');
 Route::get('/dashboard/filter', [DashboardController::class, 'getFilteredData'])->middleware(['auth', 'verified',CheckRole::class.':admin'])->name('dashboard.filter');
@@ -24,12 +25,46 @@ Route::get('/dashboard/filter', [DashboardController::class, 'getFilteredData'])
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+=======
+Route::middleware(['auth', 'verified',CheckRole::class.':admin'])->group( function (){
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+    Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified',CheckRole::class.':admin'])->name('dashboard');
+    Route::get('/dashboard/filter', [DashboardController::class, 'getFilteredData'])->middleware(['auth', 'verified',CheckRole::class.':admin'])->name('dashboard.filter');
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
+
+    Route::prefix('products')->middleware(['auth', 'verified'])->group(function() {
+
+        Route::get('/', [ProdukController::class, 'index'])->name('products.index');
+        Route::get('/create', [ProdukController::class, 'create'])->name('products.create');
+        Route::post('/store', [ProdukController::class, 'store'])->name('products.store');
+        Route::get('/edit/{id}', [ProdukController::class, 'edit'])->name('products.edit');
+        Route::put('/{id}', [ProdukController::class, 'update'])->name('products.update');
+        Route::delete('/delete/{id}', [ProdukController::class, 'destroy'])->name('products.destroy');
+    });
+
+    Route::prefix('customer')->middleware(['auth', 'verified'])->group(function() {
+        Route::get('/', [CustomerController::class, 'index'])->name('customer.index');
+        Route::get('/create', [CustomerController::class, 'create'])->name('customer.create');
+        Route::post('/store', [CustomerController::class, 'store'])->name('customer.store');
+        Route::get('/edit/{id}', [CustomerController::class, 'edit'])->name('customer.edit');
+        Route::put('/{id}', [CustomerController::class, 'update'])->name('customer.update');
+        Route::delete('/delete/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+    });
+>>>>>>> b2b9028 (add rolle user)
+
+    Route::prefix('managers')->middleware(['auth', 'verified'])->name('managers.')->group(function() {
+        Route::get('/', [AccountManagerController::class, 'index'])->name('index');
+        Route::get('/create', [AccountManagerController::class, 'create'])->name('create');
+        Route::post('/store', [AccountManagerController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [AccountManagerController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [AccountManagerController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [AccountManagerController::class, 'destroy'])->name('destroy');
+    });
 
 Route::prefix('products')->middleware(['auth', 'verified'])->group(function() {
     Route::get('/', [ProdukController::class, 'index'])->name('products.index');
@@ -83,8 +118,17 @@ Route::prefix('users')->middleware(['auth','verified'])->name('users.')->group(f
     Route::put('/{id}',[UserController::class,'update'])->name('update');
     Route::get('/delete/{id}',[UserController::class,'edit'])->name('destroy');
 
+    Route::prefix('users')->middleware(['auth','verified'])->name('users.')->group(function() {
+        Route::get('/',[UserController::class,'index'])->name('index');
+        Route::get('/create',[UserController::class,'create'])->name('create');
+        Route::post('/store',[UserController::class,'store'])->name('store');
+        Route::get('/edit/{id}',[UserController::class,'edit'])->name('edit');
+        Route::put('/{id}',[UserController::class,'update'])->name('update');
+    });
 
 });
+
+Route::get('/user-dashboard',[ContractController::class, 'getContractByUser'])->middleware(['auth', 'verified',CheckRole::class.':user'])->name('user.dashboard');
 
 
 require __DIR__.'/auth.php';

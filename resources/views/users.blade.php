@@ -20,6 +20,7 @@
                     <tr>
                         <th>Username</th>
                         <th>Email</th>
+                        <th>Company</th>
                         <th>Role</th>
                         <th>Action</th>
                     </tr>
@@ -29,6 +30,7 @@
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td> {{ optional($user->company)->company_name ?? ''}}</td>
                             <td> {{ $user->role }}</td>
                             <td><a href="{{ route('users.edit',$user->id) }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i> Edit</a></td>
                         </tr>
