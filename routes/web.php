@@ -8,15 +8,16 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/dashboard/filter', [DashboardController::class, 'getFilteredData'])->middleware(['auth', 'verified'])->name('dashboard.filter');
 
 // Users
-Route::get('/users', function () {
-    return view('users');
-})->middleware(['auth', 'verified'])->name('users.index');
+// Route::get('/users', function () {
+//     return view('users');
+// })->middleware(['auth', 'verified'])->name('users.index');
 
 
 // Managers
@@ -80,5 +81,16 @@ Route::prefix('mail-manual')->middleware(['auth','verified'])->name('mail.')->gr
 Route::get('/user-dashboard', function () {
     return view('user-dashboard');
 })->middleware(['auth', 'verified'])->name('user.dashboard');
+
+Route::prefix('users')->middleware(['auth','verified'])->name('users.')->group(function() {
+    Route::get('/',[UserController::class,'index'])->name('index');
+    Route::get('/create',[UserController::class,'create'])->name('create');
+    Route::get('/store',[UserController::class,'store'])->name('store');
+    Route::get('/edit/{id}',[UserController::class,'edit'])->name('edit');
+    Route::get('/{id}',[UserController::class,'edit'])->name('update');
+    Route::get('/delete/{id}',[UserController::class,'edit'])->name('destroy');
+
+
+});
 
 require __DIR__.'/auth.php';
