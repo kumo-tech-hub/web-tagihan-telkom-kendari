@@ -5,9 +5,9 @@
 <div class="page-content">
 
     <div class="mb-3">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+        <a href="{{ route('users.create') }}" class="btn btn-primary">
             <i class="bi bi-person-plus"></i> Add User/Customer
-        </button>
+        </a>
     </div>
 
 
@@ -30,7 +30,7 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td> {{ $user->role }}</td>
-                            <td><button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i> Edit</button></td>
+                            <td><a href="{{ route('users.edit',$user->id) }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i> Edit</a></td>
                         </tr>
                     @endforeach
                     

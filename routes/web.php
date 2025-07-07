@@ -85,9 +85,9 @@ Route::get('/user-dashboard', function () {
 Route::prefix('users')->middleware(['auth','verified'])->name('users.')->group(function() {
     Route::get('/',[UserController::class,'index'])->name('index');
     Route::get('/create',[UserController::class,'create'])->name('create');
-    Route::get('/store',[UserController::class,'store'])->name('store');
+    Route::post('/store',[UserController::class,'store'])->name('store');
     Route::get('/edit/{id}',[UserController::class,'edit'])->name('edit');
-    Route::get('/{id}',[UserController::class,'edit'])->name('update');
+    Route::put('/{id}',[UserController::class,'update'])->name('update');
     Route::get('/delete/{id}',[UserController::class,'edit'])->name('destroy');
 
 
