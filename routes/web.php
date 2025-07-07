@@ -96,4 +96,6 @@ Route::get('/user-dashboard', function () {
     return view('user-dashboard');
 })->middleware(['auth', 'verified'])->name('user.dashboard');
 
+
+
 require __DIR__.'/auth.php';
