@@ -2,56 +2,94 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
+use App\Models\Contract; 
+use App\Models\AccountManager; 
+use App\Models\Produk; 
 use Illuminate\Http\Request;
-use App\Models\Customer;
-use App\Models\CustomerContactPerson;
+
+
 class CustomerController extends Controller
 {
-    public function index(){
-        $customers = Customer::paginate(10);
-        return view('customers', compact('customers'));
-    }
-    public function create(){
-        return view('customers.form');
-    }
-    public function store(Request $request){
-        $request->validate([
-            'company_name' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
-            'address' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:100',
-            'district' => 'nullable|string|max:100',
-            'email' => 'required|email|max:255|unique:customer,email',
-            'type' => 'required|string|max:50',
-            'status' => 'required|boolean',
-        ]);
-        Customer::create($request->all());
-        return redirect()->route('customers.index')->with('success', 'Customer created successfully.');
-    }
-    public function edit($id){
-        $customer = Customer::findOrFail($id);
-        if (!$customer) {
-            return redirect()->route('customers.index')->with('error', 'Customer not found.');
-        }
-        $contactPeople = CustomerContactPerson::where('customer_id', $id)->get();
-    
-        return view('customers.form', compact('customer', 'contactPeople'));
+    public function index()
+    {
+        $companies = Company::latest()->paginate(10);
+        $managers = AccountManager::where('status', true)->get(); 
+        $products = Produk::where('status', true)->get(); 
+
+        // Kirim semua data yang dibutuhkan ke view
+        return view('customer', compact('companies', 'managers', 'products'));
+        
     }
 
-    public function update(Request $request, $id){
-        $request->validate([
+    public function create()
+    {
+        return view('customer.form');
+    }
+
+    public function storeCustomer(Request $request)
+    {
+        $validatedData = $request->validate([
+            'company_id' => 'required|exists:companies,id',
+            'account_manager_id' => 'required|exists:account_managers,id',
+            'produk_id' => 'required|exists:produk,id',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'paid_status' => 'required|in:Paid,Unpaid',
+        ]);
+
+        Contract::create($validatedData);
+
+        return redirect()->route('customer.index')->with('success', 'New contract has been added successfully!');
+    }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
             'company_name' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
-            'address' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:100',
-            'district' => 'nullable|string|max:100',
-            'email' => 'required|email|max:255|unique:customer,email,' . $id,
-            'type' => 'required|string|max:50',
+            'company_type' => 'nullable|string|max:255',
+            'email' => 'nullable|email|unique:companies,email',
+            'contact_person_name' => 'required|string|max:255',
+            'contact_person_phone' => 'nullable|string',
+            'address' => 'nullable|string',
             'status' => 'required|boolean',
         ]);
-        $customer = Customer::findOrFail($id);
-        $customer->update($request->all());
-        return redirect()->route('customers.index')->with('success', 'Customer updated successfully.');
+
+        Company::create($validatedData);
+
+        return redirect()->route('customer.index')->with('success', 'Company added successfully.');
+    }
+
+    public function edit($id)
+    {
+        $company = Company::findOrFail($id);
+        return view('customer.form', compact('company'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $company = Company::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'company_name' => 'required|string|max:255',
+            'company_type' => 'nullable|string|max:255',
+            'email' => 'nullable|email|unique:companies,email,' . $company->id,
+            'contact_person_name' => 'required|string|max:255',
+            'contact_person_phone' => 'nullable|string',
+            'address' => 'nullable|string',
+            'status' => 'required|boolean',
+        ]);
+
+        $company->update($validatedData);
+
+        return redirect()->route('customer.index')->with('success', 'Company updated successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $company = Company::findOrFail($id);
+        $company->delete();
+
+        return redirect()->route('customer.index')->with('success', 'Company deleted successfully.');
     }
 }
-
