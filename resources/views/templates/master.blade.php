@@ -44,6 +44,14 @@
     <script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
 
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script>
+        window.Laravel = {
+            appUrl: "{{ config('app.url') }}"
+        };
+    </script>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
+    
+    {{-- Feather Icons --}}
 </body>
 
 </html>
