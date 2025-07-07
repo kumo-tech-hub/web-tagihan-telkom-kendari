@@ -3,16 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdukController;
-
 use App\Http\Controllers\AccountManagerController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\CustomerContactPersonController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    return view('index');
-});
-
+Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard/filter', [DashboardController::class, 'getFilteredData'])->middleware(['auth', 'verified'])->name('dashboard.filter');
 // Email Manually
 Route::get('/email-manual', function () {
     return view('email-manual');
@@ -49,32 +45,6 @@ Route::prefix('products')->middleware(['auth', 'verified'])->group(function() {
     Route::get('/edit/{id}', [ProdukController::class, 'edit'])->name('products.edit');
     Route::put('/{id}', [ProdukController::class, 'update'])->name('products.update');
     Route::delete('/delete/{id}', [ProdukController::class, 'destroy'])->name('products.destroy');
-});
-
-
-Route::prefix('customers')->group(function() {
-    Route::get('/', [\App\Http\Controllers\CustomerController::class, 'index'])->name('customers.index');
-
-    Route::get('/create', [\App\Http\Controllers\CustomerController::class, 'create'])->name('customers.create');
-
-    Route::post('/store', [\App\Http\Controllers\CustomerController::class, 'store'])->name('customers.store');
-
-    Route::get('/edit/{id}', [\App\Http\Controllers\CustomerController::class, 'edit'])->name('customers.edit');
-
-    Route::put('/{id}', [\App\Http\Controllers\CustomerController::class, 'update'])->name('customers.update');
-
-});
-
-Route::prefix('contact-person')->group(function() {
-    Route::get('/create/{customerId}', [\App\Http\Controllers\CustomerContactPersonController ::class, 'create'])->name('contact-person.create');
-
-    Route::post('/store', [\App\Http\Controllers\CustomerContactPersonController ::class, 'store'])->name('contact-person.store');
-
-    Route::get('/edit/{id}', [\App\Http\Controllers\CustomerContactPersonController ::class, 'edit'])->name('contact-person.edit');
-
-    Route::put('/{id}', [\App\Http\Controllers\CustomerContactPersonController ::class, 'update'])->name('contact-person.update');
-
-    Route::delete('/delete/{id}', [\App\Http\Controllers\CustomerContactPersonController ::class, 'destroy'])->name('contact-person.destroy');
 });
 
 

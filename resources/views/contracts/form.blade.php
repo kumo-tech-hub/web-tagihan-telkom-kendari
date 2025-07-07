@@ -43,6 +43,19 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" required>
+                                <option value="">-- Select Status --</option>
+                                <option value="1" {{ (isset($company) && $company->status == 1) || old('status') == '1' ? 'selected' : '' }}>Active</option>
+                                <option value="0" {{ (isset($company) && $company->status == 0) || old('status') == '0' ? 'selected' : '' }}>Inactive</option>
+                            </select>
+                            @error('status')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
                     
                     <div class="row mb-3">
                         <div class="col-md-6">

@@ -15,7 +15,8 @@
                 <li class="sidebar-title">Menu</li>
 
                 <li class="sidebar-item active">
-                    <a href="{{ route('dashboard') }}" class='sidebar-link'>
+                    <a href="/
+                    " class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
@@ -53,19 +54,6 @@
                     <a href="{{ route('users.index') }}" class='sidebar-link'>
                         <i class="bi bi-people"></i>
                         <span>User</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a href="{{ route('managers.index') }}" class='sidebar-link'>
-                        <i class="bi bi-person-badge"></i>
-                        <span>Manager</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="{{ route('customers.index') }}" class='sidebar-link'>
-                        <i class="bi bi-person-badge"></i>
-                        <span>Customer</span>
                     </a>
                 </li>
 

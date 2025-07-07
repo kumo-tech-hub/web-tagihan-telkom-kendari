@@ -52,6 +52,7 @@ class ContractController extends Controller
             'contact_person_name' => 'required|string|max:255',
             'contact_person_phone' => 'nullable|string',
             'address' => 'nullable|string',
+            'status' => 'required|boolean',
         ]);
 
         Company::create($validatedData);
@@ -76,6 +77,7 @@ class ContractController extends Controller
             'contact_person_name' => 'required|string|max:255',
             'contact_person_phone' => 'nullable|string',
             'address' => 'nullable|string',
+            'status' => 'required|boolean',
         ]);
 
         $company->update($validatedData);

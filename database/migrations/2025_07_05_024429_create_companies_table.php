@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id(); // Kolom ID (auto-increment)
             $table->string(column: 'company_name');
             $table->string('company_type')->nullable();
-            $table->string('address')->nullable(); // Boleh kosong
-            $table->string('email')->nullable()->unique(); // Boleh kosong dan harus unik
+            $table->string('address')->nullable(); 
+            $table->string('email')->nullable()->unique(); 
+
             $table->string('contact_person_name');
             $table->string('contact_person_phone')->nullable(); 
+            $table->boolean('status')->default(true); 
             $table->timestamps(); 
         });
     }
