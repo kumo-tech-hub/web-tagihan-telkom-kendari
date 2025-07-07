@@ -8,13 +8,13 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">{{ isset($company) ? 'Edit' : 'Add' }} Company</h4>
-                <a href="{{ route('contracts.index') }}" class="btn btn-secondary btn-sm position-absolute top-0 end-0 m-3">
+                <a href="{{ route('customer.index') }}" class="btn btn-secondary btn-sm position-absolute top-0 end-0 m-3">
                     <i class="bi bi-x-lg"></i> Cancel
                 </a>
             </div>
 
             <div class="card-body">
-                <form action="{{ isset($company) ? route('contracts.update', $company->id) : route('contracts.store') }}" method="POST">
+                <form action="{{ isset($company) ? route('customer.update', $company->id) : route('customer.store') }}" method="POST">
                     @csrf
                     @if (isset($company))
                         @method('PUT')
@@ -98,7 +98,7 @@
                         <button type="submit" class="btn btn-primary">
                             {{ isset($company) ? 'Update Company' : 'Save Company' }}
                         </button>
-                        <a href="{{ route('contracts.index') }}" class="btn btn-light">Cancel</a>
+                        <a href="{{ route('customer.index') }}" class="btn btn-light">Cancel</a>
                     </div>
                 </form>
             </div>

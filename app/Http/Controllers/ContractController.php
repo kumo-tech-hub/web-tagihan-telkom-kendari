@@ -2,94 +2,89 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contract;
 use App\Models\Company;
-use App\Models\Contract; 
-use App\Models\AccountManager; 
-use App\Models\Produk; 
+use App\Models\AccountManager;
+use App\Models\Produk;
 use Illuminate\Http\Request;
-
 
 class ContractController extends Controller
 {
-    public function index()
+    // Display list of contracts
+    public function listContracts()
     {
-        $companies = Company::latest()->paginate(10);
-        $managers = AccountManager::where('status', true)->get(); 
-        $products = Produk::where('status', true)->get(); 
-
-        // Kirim semua data yang dibutuhkan ke view
-        return view('contracts', compact('companies', 'managers', 'products'));
+        $contracts = Contract::with(['company', 'accountManager', 'produk'])
+            ->latest()
+            ->paginate(10);
         
+        return view('contract', compact('contracts'));
     }
 
+    // Show create form
     public function create()
     {
-        return view('contracts.form');
+        $companies = Company::all();
+        $accountManagers = AccountManager::all();
+        $products = Produk::all();
+        
+        return view('contracts.create', compact('companies', 'accountManagers', 'products'));
     }
 
-    public function storeContract(Request $request)
+    // Store new contract
+    public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'company_id' => 'required|exists:companies,id',
             'account_manager_id' => 'required|exists:account_managers,id',
             'produk_id' => 'required|exists:produk,id',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'paid_status' => 'required|in:Paid,Unpaid',
+            'end_date' => 'required|date|after:start_date',
+            'paid_status' => 'required|in:Paid,Unpaid'
         ]);
 
-        Contract::create($validatedData);
-
-        return redirect()->route('contracts.index')->with('success', 'New contract has been added successfully!');
+        Contract::create($request->all());
+        
+        return redirect()->route('contracts.list')
+            ->with('success', 'Contract created successfully!');
     }
 
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'company_name' => 'required|string|max:255',
-            'company_type' => 'nullable|string|max:255',
-            'email' => 'nullable|email|unique:companies,email',
-            'contact_person_name' => 'required|string|max:255',
-            'contact_person_phone' => 'nullable|string',
-            'address' => 'nullable|string',
-            'status' => 'required|boolean',
-        ]);
-
-        Company::create($validatedData);
-
-        return redirect()->route('contracts.index')->with('success', 'Company added successfully.');
-    }
-
+    // Show edit form
     public function edit($id)
     {
-        $company = Company::findOrFail($id);
-        return view('contracts.form', compact('company'));
+        $contract = Contract::findOrFail($id);
+        $companies = Company::all();
+        $accountManagers = AccountManager::all();
+        $products = Produk::all();
+        
+        return view('contracts.edit', compact('contract', 'companies', 'accountManagers', 'products'));
     }
 
+    // Update contract
     public function update(Request $request, $id)
     {
-        $company = Company::findOrFail($id);
-
-        $validatedData = $request->validate([
-            'company_name' => 'required|string|max:255',
-            'company_type' => 'nullable|string|max:255',
-            'email' => 'nullable|email|unique:companies,email,' . $company->id,
-            'contact_person_name' => 'required|string|max:255',
-            'contact_person_phone' => 'nullable|string',
-            'address' => 'nullable|string',
-            'status' => 'required|boolean',
+        $request->validate([
+            'company_id' => 'required|exists:companies,id',
+            'account_manager_id' => 'required|exists:account_managers,id',
+            'produk_id' => 'required|exists:produk,id',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
+            'paid_status' => 'required|in:Paid,Unpaid'
         ]);
 
-        $company->update($validatedData);
-
-        return redirect()->route('contracts.index')->with('success', 'Company updated successfully.');
+        $contract = Contract::findOrFail($id);
+        $contract->update($request->all());
+        
+        return redirect()->route('contracts.list')
+            ->with('success', 'Contract updated successfully!');
     }
 
+    // Delete contract
     public function destroy($id)
     {
-        $company = Company::findOrFail($id);
-        $company->delete();
-
-        return redirect()->route('contracts.index')->with('success', 'Company deleted successfully.');
+        $contract = Contract::findOrFail($id);
+        $contract->delete();
+        
+        return redirect()->route('contracts.list')
+            ->with('success', 'Contract deleted successfully!');
     }
 }

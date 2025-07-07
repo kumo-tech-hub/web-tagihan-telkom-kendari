@@ -30,9 +30,16 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="{{ route('contracts.index') }}" class='sidebar-link'>
+                    <a href="{{ route('contracts.list') }}" class='sidebar-link'>
                         <i class="bi bi-file-earmark-text"></i>
                         <span>Contract</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a href="{{ route('customer.index') }}" class='sidebar-link'>
+                        <i class="bi bi-file-earmark-text"></i>
+                        <span>Customer</span>
                     </a>
                 </li>
 

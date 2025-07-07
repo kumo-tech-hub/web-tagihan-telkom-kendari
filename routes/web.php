@@ -4,8 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\AccountManagerController;
-use App\Http\Controllers\ContractController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ContractController;
 
 Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/dashboard/filter', [DashboardController::class, 'getFilteredData'])->middleware(['auth', 'verified'])->name('dashboard.filter');
@@ -48,14 +49,14 @@ Route::prefix('products')->middleware(['auth', 'verified'])->group(function() {
 });
 
 
-Route::prefix('contracts')->middleware(['auth', 'verified'])->group(function() {
-    Route::get('/', [ContractController::class, 'index'])->name('contracts.index');
-    Route::get('/create', [ContractController::class, 'create'])->name('contracts.create');
-    Route::post('/store', [ContractController::class, 'store'])->name('contracts.store');
-    Route::get('/edit/{id}', [ContractController::class, 'edit'])->name('contracts.edit');
-    Route::put('/{id}', [ContractController::class, 'update'])->name('contracts.update');
-    Route::delete('/delete/{id}', [ContractController::class, 'destroy'])->name('contracts.destroy');
-     Route::post('/store-contract', [ContractController::class, 'storeContract'])->name('contracts.store_contract');
+Route::prefix('customer')->middleware(['auth', 'verified'])->group(function() {
+    Route::get('/', [CustomerController::class, 'index'])->name('customer.index');
+    Route::get('/create', [CustomerController::class, 'create'])->name('customer.create');
+    Route::post('/store', [CustomerController::class, 'store'])->name('customer.store');
+    Route::get('/edit/{id}', [CustomerController::class, 'edit'])->name('customer.edit');
+    Route::put('/{id}', [CustomerController::class, 'update'])->name('customer.update');
+    Route::delete('/delete/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+     Route::post('/store-customer', [CustomerController::class, 'storeCustomer'])->name('customer.store_customer');
 });
 
 Route::prefix('managers')->middleware(['auth', 'verified'])->name('managers.')->group(function() {
@@ -65,6 +66,15 @@ Route::prefix('managers')->middleware(['auth', 'verified'])->name('managers.')->
     Route::get('/edit/{id}', [AccountManagerController::class, 'edit'])->name('edit');
     Route::put('/{id}', [AccountManagerController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [AccountManagerController::class, 'destroy'])->name('destroy');
+});
+
+Route::prefix('contracts')->middleware(['auth', 'verified'])->name('contracts.')->group(function() {
+    Route::get('/', [ContractController::class, 'listContracts'])->name('list');
+    Route::get('/create', [ContractController::class, 'create'])->name('create');
+    Route::post('/store', [ContractController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [ContractController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [ContractController::class, 'update'])->name('update');
+    Route::delete('/delete/{id}', [ContractController::class, 'destroy'])->name('destroy');
 });
 
 

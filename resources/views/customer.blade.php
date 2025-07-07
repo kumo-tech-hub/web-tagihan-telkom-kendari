@@ -5,7 +5,7 @@
 @section('content')
 <div class="page-content">
     <div class="mb-4">
-        <a href="{{ route('contracts.create') }}" class="btn btn-primary">
+        <a href="{{ route('customer.create') }}" class="btn btn-primary">
             <i class="bi bi-plus-circle"></i> Add Company
         </a>
     </div>
@@ -38,13 +38,13 @@
                             <td>{{ $company->contact_person_name }} ({{ $company->contact_person_phone }})</td>
 
                             <td class="d-flex gap-2">
-                                <a href="{{ route('contracts.edit', $company->id) }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i> Edit</a>
+                                <a href="{{ route('customer.edit', $company->id) }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i> Edit</a>
                                 
-                                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addContractModal-{{$company->id}}">
+                                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addCustomerModal-{{$company->id}}">
                                     <i class="bi bi-file-earmark-plus"></i> Add Contract
                                 </button>
 
-                                <form action="{{ route('contracts.destroy', $company->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this company?');">
+                                <form action="{{ route('customer.destroy', $company->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this company?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Delete</button>
@@ -67,16 +67,15 @@
 </div>
 
 @foreach ($companies as $company)
-<div class="modal fade" id="addContractModal-{{$company->id}}" tabindex="-1" aria-labelledby="addContractModalLabel-{{$company->id}}" aria-hidden="true">
+<div class="modal fade" id="addCustomerModal-{{$company->id}}" tabindex="-1" aria-labelledby="addCustomerModalLabel-{{$company->id}}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addContractModalLabel-{{$company->id}}">Add Contract for {{ $company->company_name }}</h5>
+                <h5 class="modal-title" id="addCustomerModalLabel-{{$company->id}}">Add Contract for {{ $company->company_name }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {{-- Form mengarah ke route yang baru kita buat --}}
-                <form action="{{ route('contracts.store_contract') }}" method="POST">
+                <form action="{{ route('customer.store_customer') }}" method="POST">
                     @csrf
                     {{-- Kirim company_id secara tersembunyi --}}
                     <input type="hidden" name="company_id" value="{{ $company->id }}">
