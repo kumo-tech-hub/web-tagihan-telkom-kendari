@@ -21,13 +21,16 @@ class ContractController extends Controller
     }
 
     // Show create form
-    public function create()
+    public function create(Request $request)
     {
         $companies = Company::all();
         $accountManagers = AccountManager::all();
         $products = Produk::all();
         
-        return view('contracts.create', compact('companies', 'accountManagers', 'products'));
+        // Jika ada company_id dari parameter, maka kita sedang menambah contract dari halaman company
+        $selectedCompanyId = $request->get('company_id');
+        
+        return view('contracts.form', compact('companies', 'accountManagers', 'products', 'selectedCompanyId'));
     }
 
     // Store new contract
@@ -42,7 +45,11 @@ class ContractController extends Controller
             'paid_status' => 'required|in:Paid,Unpaid'
         ]);
 
-        Contract::create($request->all());
+        // Generate contract number
+        $contractData = $request->all();
+        $contractData['contract_number'] = $this->generateContractNumber();
+
+        Contract::create($contractData);
         
         return redirect()->route('contracts.list')
             ->with('success', 'Contract created successfully!');
@@ -86,5 +93,16 @@ class ContractController extends Controller
         
         return redirect()->route('contracts.list')
             ->with('success', 'Contract deleted successfully!');
+    }
+
+    // Generate contract number
+    private function generateContractNumber()
+    {
+        do {
+            $randomNumber = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+            $contractNumber = 'cont/' . $randomNumber;
+        } while (Contract::where('contract_number', $contractNumber)->exists());
+
+        return $contractNumber;
     }
 }

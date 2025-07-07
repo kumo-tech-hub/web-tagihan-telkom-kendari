@@ -8,39 +8,18 @@ use App\Models\AccountManager;
 use App\Models\Produk; 
 use Illuminate\Http\Request;
 
-
 class CustomerController extends Controller
 {
     public function index()
     {
         $companies = Company::latest()->paginate(10);
-        $managers = AccountManager::where('status', true)->get(); 
-        $products = Produk::where('status', true)->get(); 
-
-        // Kirim semua data yang dibutuhkan ke view
-        return view('customer', compact('companies', 'managers', 'products'));
         
+        return view('customer', compact('companies'));
     }
 
     public function create()
     {
         return view('customer.form');
-    }
-
-    public function storeCustomer(Request $request)
-    {
-        $validatedData = $request->validate([
-            'company_id' => 'required|exists:companies,id',
-            'account_manager_id' => 'required|exists:account_managers,id',
-            'produk_id' => 'required|exists:produk,id',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'paid_status' => 'required|in:Paid,Unpaid',
-        ]);
-
-        Contract::create($validatedData);
-
-        return redirect()->route('customer.index')->with('success', 'New contract has been added successfully!');
     }
 
     public function store(Request $request)
