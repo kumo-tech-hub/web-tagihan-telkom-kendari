@@ -22,7 +22,14 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="{{ route('contracts') }}" class='sidebar-link'>
+                    <a href="{{ route('managers.index') }}" class='sidebar-link'>
+                        <i class="bi bi-person-badge"></i>
+                        <span>Account Manager</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a href="{{ route('contracts.index') }}" class='sidebar-link'>
                         <i class="bi bi-file-earmark-text"></i>
                         <span>Contract</span>
                     </a>
@@ -61,6 +68,7 @@
                         <span>Customer</span>
                     </a>
                 </li>
+
             </ul>
         </div>
         <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>

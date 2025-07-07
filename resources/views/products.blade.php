@@ -10,7 +10,6 @@
         </a>
     </div>
 
-    <!-- Table Product List (contoh statis) -->
     <div class="card mt-4">
         <div class="card-header">Product List</div>
         <div class="card-body">

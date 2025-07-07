@@ -2,20 +2,31 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class AccountManager extends Model
 {
-    //
-    protected $table = 'account_manager';
+
+    use HasFactory;
+
+    /**
+     * Nama tabel yang terhubung dengan model.
+     *
+     * @var string
+     */
+    protected $table = 'account_managers';
+
+    /**
+     * Atribut yang dapat diisi secara massal.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'email',
         'phone_number',
         'status',
     ];
-    protected $casts = [
-        'status' => 'boolean',
-    ];
+
 }

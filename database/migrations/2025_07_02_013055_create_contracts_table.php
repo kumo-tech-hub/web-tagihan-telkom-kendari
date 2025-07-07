@@ -6,30 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('contract', function (Blueprint $table) {
+        Schema::create('contracts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained('customer')->onDelete('restrict');
-            $table->foreignId('account_manager_id')->constrained('account_manager')->onDelete('restrict');
-            $table->foreignId('product_id')->constrained('produk')->onDelete('restrict');
-            $table->string("no_surat")->unique();
-            $table->date("start_date");
-            $table->date("end_date");
-            $table->boolean("payment_status")->default(false);
-            $table->string("payment_bank")->nullable();
-            $table->string("bank_account_id")->nullable();
-            $table->string("bank_account_name")->nullable();
+
+            $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
+            $table->foreignId('account_manager_id')->constrained('account_managers')->onDelete('cascade');
+            $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
+
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->string('paid_status')->default('Unpaid'); // Options: Unpaid, Paid
+
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('contracts');

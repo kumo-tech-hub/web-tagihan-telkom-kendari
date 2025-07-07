@@ -1,57 +1,65 @@
 @extends('templates.master')
 
-@section('page_title', 'Managers')
+@section('page_title', 'Account Managers')
+
 @section('content')
 <div class="page-content">
-    <!-- Tombol Add Account Manager -->
-    <div class="mb-3">
-        <a href="/managers/create" class="btn btn-primary">
+
+    <div class="mb-4">
+        <a href="{{ route('managers.create') }}" class="btn btn-primary">
+
             <i class="bi bi-plus-circle"></i> Add Account Manager
         </a>
     </div>
 
-    <!-- Table Account Manager List -->
+
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
     <div class="card mt-4">
         <div class="card-header">Account Manager List</div>
         <div class="card-body">
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>No</th>
+
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Phone</th>
+                        <th>Phone Number</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Contoh data statis, ganti dengan loop data dari backend -->
-                    @php
-                        $no = 1;
-                    @endphp
-                    @foreach ($managers as $manager)
+
+                    @forelse ($managers as $manager)
                         <tr>
-                            <td>{{ $no++ }}</td>
-                            <td>{{ $manager->first_name }} {{ $manager->last_name }}</td>
+                            <td>{{ $manager->name }}</td>
                             <td>{{ $manager->email }}</td>
-                            <td>{{ $manager->phone_number }}</td>
+                            <td>{{ $manager->phone_number ?? '-' }}</td>
                             <td>
-                                <span class="badge {{ $manager->status ? 'bg-success' : 'bg-danger' }}">
-                                    {{ $manager->status ? 'Active' : 'Inactive' }}
-                                </span>
+                                @if($manager->status)
+                                    <span class="badge bg-success">Aktif</span>
+                                @else
+                                    <span class="badge bg-danger">Tidak Aktif</span>
+                                @endif
                             </td>
-                            <td class="d-flex gap-2 justify-content-center align-items-center">
-                                <a href="/managers/edit/{{ $manager->id }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i> Edit</a>
-                                <form action="/managers/delete/{{ $manager->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this manager?');">
+                            <td class="d-flex gap-2">
+                                <a href="{{ route('managers.edit', $manager->id) }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i> Edit</a>
+                                <form action="{{ route('managers.destroy', $manager->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Delete</button>
                                 </form>
                             </td>
+                        </tr>   
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center">No account managers found.</td>
                         </tr>
-                    @endforeach
-                   
+                    @endforelse
                 </tbody>
             </table>
             <div class="mt-3">
