@@ -20,8 +20,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @dd($contracts)
-
+                    {{-- @dd($contracts) --}}
                     <!-- Contoh data statis, ganti dengan loop data dari backend -->
                     @foreach ($contracts as $contract)
                         <tr>
@@ -37,11 +36,11 @@
                                 @endif
                             </td>
                             <td>
-                                <form action="" method="POST" >
+                                <form action="{{route('mail.send',$contract->id)}}" method="POST" >
                                     @csrf
                                     @method('POST')
                                     <input type="hidden" name="email" value=" {{ $contract->company->email }} ">
-                                    <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-warning"><i class="bi bi-mail"></i> send email</button>
                             </td>
                         </tr>
                     @endforeach

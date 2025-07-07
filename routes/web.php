@@ -75,6 +75,7 @@ Route::prefix('contracts')->middleware(['auth', 'verified'])->name('contracts.')
 
 Route::prefix('mail-manual')->middleware(['auth','verified'])->name('mail.')->group(function (){
     Route::get('/',[MailController::class,'index'])->name('index');
+    Route::post('/{id}',[MailController::class,'sendEmail'])->name('send');
 });
 Route::get('/user-dashboard', function () {
     return view('user-dashboard');

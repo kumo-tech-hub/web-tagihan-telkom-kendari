@@ -188,51 +188,39 @@
         <div class="invoice-body">
             <div class="contract-info">
                 <div class="info-row">
-                    <span class="info-label">No. Surat:</span>
-                    <span class="info-value">TLK/2024/INV/001234</span>
+                    <span class="info-label">No. Contract:</span>
+                    <span class="info-value">{{ $contract->number }}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Tanggal Kontrak:</span>
-                    <span class="info-value">01 Juli 2025</span>
+                    <span class="info-value">{{ $contract->start_date }}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Selesai Kontrak:</span>
-                    <span class="info-value">01 Juli 2027</span>
+                    <span class="info-value"> {{ $contract->end_date }} </span>
                 </div>
                 <div class="info-row">
-                    <span class="info-label">ID Pelanggan:</span>
-                    <span class="info-value">1234567890</span>
+                    <span class="info-label">Company :</span>
+                    <span class="info-value">{{ $contract->company->company_name }}</span>
                 </div>
             </div>
 
             <div class="package-section">
-                <div class="package-name">IndiHome Paket Phoenix 3P 30 Mbps</div>
+                <div class="package-name">{{ $contract->produk->name }}</div>
                 <div class="package-details">
-                    Internet 30 Mbps + TV 150+ channel + Telepon unlimited
+                    {{ $contract->produk->description }}
                 </div>
 
                 <div class="cost-table">
                     <div class="cost-row">
-                        <span>Biaya Berlangganan Bulanan</span>
-                        <span>Rp 389.000</span>
-                    </div>
-                    <div class="cost-row">
-                        <span>Biaya Pasang Baru</span>
-                        <span>Rp 150.000</span>
-                    </div>
-                    <div class="cost-row">
-                        <span>Total Biaya</span>
-                        <span>Rp 539.000</span>
-                    </div>
-                    <div class="cost-row discount-row">
-                        <span>Diskon Promosi (20%)</span>
-                        <span>- Rp 107.800</span>
+                        <span>Biaya</span>
+                        <span>Rp {{ $contract->produk->price }}</span>
                     </div>
                 </div>
 
                 <div class="total-payment">
                     <div class="total-label">TOTAL PEMBAYARAN</div>
-                    <div class="total-amount">Rp 431.200</div>
+                    <div class="total-amount">Rp {{ $contract->produk->price }}</div>
                 </div>
             </div>
 
