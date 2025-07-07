@@ -56,7 +56,7 @@ class ContractController extends Controller
         $accountManagers = AccountManager::all();
         $products = Produk::all();
         
-        return view('contracts.edit', compact('contract', 'companies', 'accountManagers', 'products'));
+        return view('contracts.form', compact('contract', 'companies', 'accountManagers', 'products'));
     }
 
     // Update contract

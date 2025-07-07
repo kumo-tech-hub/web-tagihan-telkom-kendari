@@ -78,5 +78,9 @@ Route::prefix('contracts')->middleware(['auth', 'verified'])->name('contracts.')
 Route::prefix('mail-manual')->middleware(['auth','verified'])->name('mail.')->group(function (){
     Route::get('/',[MailController::class,'index'])->name('index');
 });
+Route::get('/user-dashboard', function () {
+    return view('user-dashboard');
+})->middleware(['auth', 'verified'])->name('user.dashboard');
+
 
 require __DIR__.'/auth.php';
