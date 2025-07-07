@@ -6,7 +6,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\AccountManagerController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerContactPersonController;
-
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/dashboard/filter', [DashboardController::class, 'getFilteredData'])->middleware(['auth', 'verified'])->name('dashboard.filter');
@@ -99,5 +99,7 @@ Route::prefix('contact-person')->group(function() {
 
     Route::delete('/delete/{id}', [\App\Http\Controllers\CustomerContactPersonController ::class, 'destroy'])->name('contact-person.destroy');
 });
+
+
 
 require __DIR__.'/auth.php';
