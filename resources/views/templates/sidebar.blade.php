@@ -50,8 +50,9 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="{{ route('email.manual') }}" class='sidebar-link'>
-                        <i class="bi bi-envelope-fill"></i>
+                    <a href="{{ route('mail.index') }}" class='sidebar-link'>
+                        <i class="bi bi-envelope-paper"></i>
+
                         <span>Email Manually</span>
                     </a>
                 </li>
@@ -63,6 +64,13 @@
                     </a>
                 </li>
 
+                <li class="sidebar-item">
+                    <a href="{{ route('managers.index') }}" class='sidebar-link'>
+                        <i class="bi bi-person-badge"></i>
+                        <span>Manager</span>
+                    </a>
+                </li>
+                
             </ul>
         </div>
         <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
