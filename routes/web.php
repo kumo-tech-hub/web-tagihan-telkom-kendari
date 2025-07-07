@@ -9,10 +9,10 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\CheckRole;
 
-
-Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/dashboard/filter', [DashboardController::class, 'getFilteredData'])->middleware(['auth', 'verified'])->name('dashboard.filter');
+Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified',CheckRole::class.':admin'])->name('dashboard');
+Route::get('/dashboard/filter', [DashboardController::class, 'getFilteredData'])->middleware(['auth', 'verified',CheckRole::class.':admin'])->name('dashboard.filter');
 
 // Users
 // Route::get('/users', function () {
