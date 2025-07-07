@@ -51,7 +51,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="{{ route('email.manual') }}" class='sidebar-link'>
+                    <a href="{{ route('mail.index') }}" class='sidebar-link'>
                         <i class="bi bi-envelope-paper"></i>
                         <span>Email Manually</span>
                     </a>
@@ -71,7 +71,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="{{ route('customers.index') }}" class='sidebar-link'>
+                    <a href="{{ route('customer.index') }}" class='sidebar-link'>
                         <i class="bi bi-person-badge"></i>
                         <span>Customer</span>
                     </a>
