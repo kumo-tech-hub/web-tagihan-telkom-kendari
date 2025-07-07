@@ -77,5 +77,9 @@ Route::prefix('contracts')->middleware(['auth', 'verified'])->name('contracts.')
     Route::delete('/delete/{id}', [ContractController::class, 'destroy'])->name('destroy');
 });
 
+Route::get('/user-dashboard', function () {
+    return view('user-dashboard');
+})->middleware(['auth', 'verified'])->name('user.dashboard');
+
 
 require __DIR__.'/auth.php';

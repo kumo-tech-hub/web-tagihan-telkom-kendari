@@ -32,7 +32,7 @@
                         <tr>
                             <td>{{ $index + $contracts->firstItem() }}</td>
                             <td>
-                                <strong class="text-primary">{{ $contract->contract_number }}</strong>
+                                {{ $contract->contract_number }}
                             </td>
                             <td>{{ $contract->company->company_name ?? '-' }}</td>
                             <td>{{ $contract->accountManager->name ?? '-' }}</td>

@@ -27,7 +27,7 @@ class CustomerController extends Controller
         return view('customer.form');
     }
 
-    public function storeContract(Request $request)
+    public function storeCustomer(Request $request)
     {
         $validatedData = $request->validate([
             'company_id' => 'required|exists:companies,id',
