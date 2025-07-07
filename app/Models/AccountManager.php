@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AccountManager extends Model
 {
+
     use HasFactory;
 
     /**
@@ -27,4 +28,5 @@ class AccountManager extends Model
         'phone_number',
         'status',
     ];
+
 }

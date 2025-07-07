@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\AccountManager;
 use Illuminate\Http\Request;
+use App\Models\AccountManager;
 
 class AccountManagerController extends Controller
 {
+
     public function index()
     {
         $managers = AccountManager::latest()->paginate(10);
@@ -53,6 +55,7 @@ class AccountManagerController extends Controller
         return redirect()->route('managers.index')->with('success', 'Account Manager updated successfully.');
     }
 
+
     public function destroy($id)
     {
         $manager = AccountManager::findOrFail($id);
@@ -60,4 +63,5 @@ class AccountManagerController extends Controller
 
         return redirect()->route('managers.index')->with('success', 'Account Manager deleted successfully.');
     }
+
 }

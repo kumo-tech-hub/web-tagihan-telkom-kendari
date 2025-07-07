@@ -57,8 +57,8 @@
                         <div class="form-group">
                             <label for="status">Status</label>
                             <select class="form-control" name="status" id="status">
-                                <option value="1" {{ (isset($product) && $product->status == 1) ? 'selected' : '' }}>Aktif</option>
-                                <option value="0" {{ (isset($product) && $product->status == 0) ? 'selected' : '' }}>Tidak Aktif</option>
+                                <option value="1" {{ (isset($product) && $product->status == 1) ? 'selected' : '' }}>Available</option>
+                                <option value="0" {{ (isset($product) && $product->status == 0) ? 'selected' : '' }}>Unavailable</option>
                             </select>
                         </div>
                         

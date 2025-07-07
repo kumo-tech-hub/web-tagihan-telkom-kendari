@@ -55,6 +55,20 @@
                         <span>User</span>
                     </a>
                 </li>
+
+                <li class="sidebar-item">
+                    <a href="{{ route('managers.index') }}" class='sidebar-link'>
+                        <i class="bi bi-person-badge"></i>
+                        <span>Manager</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="{{ route('customers.index') }}" class='sidebar-link'>
+                        <i class="bi bi-person-badge"></i>
+                        <span>Customer</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
         <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
