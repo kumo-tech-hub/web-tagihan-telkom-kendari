@@ -75,7 +75,11 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
+<<<<<<< HEAD
                     <a href="{{ route('customer.index') }}" class='sidebar-link'>
+=======
+                    <a href="{{ route('customers.index') }}" class='sidebar-link'>
+>>>>>>> af2a9e8 (solve merge)
                         <i class="bi bi-person-badge"></i>
                         <span>Customer</span>
                     </a>
