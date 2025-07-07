@@ -6,6 +6,7 @@ use App\Models\Contract;
 use App\Models\Company;
 use App\Models\AccountManager;
 use App\Models\Produk;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class ContractController extends Controller
@@ -104,5 +105,13 @@ class ContractController extends Controller
         } while (Contract::where('contract_number', $contractNumber)->exists());
 
         return $contractNumber;
+    }
+
+    public function getContractByUser(){
+        $contracts = Contract::with(['company', 'accountManager', 'produk'])->where([
+            'company_id'=> Auth::user()->company_id
+        ])->get();
+
+        return view('user-dashboard',compact('contracts'));
     }
 }

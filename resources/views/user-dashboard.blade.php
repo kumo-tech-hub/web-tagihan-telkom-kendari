@@ -12,20 +12,20 @@
                     <tr>
                         <th class="text-center">No</th>
                         <th>Nomor Kontrak</th>
+                        <th>Produk</th>
                         <th>Tanggal Jatuh Tempo</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="text-center">1</td>
-                        <td><span class="badge bg-info text-dark fs-6">CTR-000123</span></td>
-                        <td><span class="fw-bold text-danger">15 Agustus 2025</span></td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">2</td>
-                        <td><span class="badge bg-info text-dark fs-6">CTR-000124</span></td>
-                        <td><span class="fw-bold text-danger">1 September 2025</span></td>
-                    </tr>
+                    @foreach ($contracts as $contract )
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td><span class="badge bg-info text-dark fs-6">{{ $contract->contract_number }}</span></td>
+                            <td><span class="fw-bold text-danger">{{ $contract->produk->name }}</span></td>
+                            <td><span class="fw-bold text-danger">{{ $contract->end_date }}</span></td>
+                        </tr>
+                    @endforeach
+                   
                 </tbody>
             </table>
         </div>

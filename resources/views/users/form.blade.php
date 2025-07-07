@@ -61,6 +61,15 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label for="company_id">Company</label>
+                            <select class="form-control" name="company_id" id="company_id">
+                                <option value="">Silahkan Pilih company </option>
+                                @foreach ($companies as $company )
+                                    <option value="{{$company->id}}" {{ (isset($user) && $user->company_id == $company->id) ? 'selected' : '' }}>{{ $company->company_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="role">Role</label>
                             <select class="form-control" name="role" id="role">
                                 <option value="admin" {{ (isset($user) && $user->role == 'admin') ? 'selected' : '' }}>Admin</option>

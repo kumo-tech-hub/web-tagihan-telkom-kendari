@@ -9,7 +9,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('contracts', function (Blueprint $table) {
-            // Add contract_number column after id
             $table->string('contract_number')->unique()->after('id');
         });
     }
