@@ -11,20 +11,15 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckRole;
 
+
 Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified',CheckRole::class.':admin'])->name('dashboard');
 Route::get('/dashboard/filter', [DashboardController::class, 'getFilteredData'])->middleware(['auth', 'verified',CheckRole::class.':admin'])->name('dashboard.filter');
+
 
 // Users
 // Route::get('/users', function () {
 //     return view('users');
 // })->middleware(['auth', 'verified'])->name('users.index');
-
-
-// Managers
-// Route::get('/managers', function () {
-//     return view('managers');
-// })->middleware(['auth', 'verified'])->name('managers');
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -36,9 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
 Route::prefix('products')->middleware(['auth', 'verified'])->group(function() {
-
     Route::get('/', [ProdukController::class, 'index'])->name('products.index');
     Route::get('/create', [ProdukController::class, 'create'])->name('products.create');
     Route::post('/store', [ProdukController::class, 'store'])->name('products.store');
@@ -92,5 +85,6 @@ Route::prefix('users')->middleware(['auth','verified'])->name('users.')->group(f
 
 
 });
+
 
 require __DIR__.'/auth.php';

@@ -52,6 +52,7 @@
                 <li class="sidebar-item">
                     <a href="{{ route('mail.index') }}" class='sidebar-link'>
                         <i class="bi bi-envelope-paper"></i>
+
                         <span>Email Manually</span>
                     </a>
                 </li>
