@@ -51,12 +51,17 @@
 
                 <li class="sidebar-item">
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <a href="{{ route('mail.index') }}" class='sidebar-link'>
                         <i class="bi bi-envelope-paper"></i>
 =======
                     <a href="{{ route('email.manual') }}" class='sidebar-link'>
                         <i class="bi bi-envelope-fill"></i>
 >>>>>>> 9f3c9af (perbaikan contract dan sidebar)
+=======
+                    <a href="{{ route('mail.index') }}" class='sidebar-link'>
+                        <i class="bi bi-envelope-paper"></i>
+>>>>>>> b3be3e5 (addd)
                         <span>Email Manually</span>
                     </a>
                 </li>
@@ -76,10 +81,14 @@
                 </li>
                 <li class="sidebar-item">
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <a href="{{ route('customer.index') }}" class='sidebar-link'>
 =======
                     <a href="{{ route('customers.index') }}" class='sidebar-link'>
 >>>>>>> af2a9e8 (solve merge)
+=======
+                    <a href="{{ route('customer.index') }}" class='sidebar-link'>
+>>>>>>> b3be3e5 (addd)
                         <i class="bi bi-person-badge"></i>
                         <span>Customer</span>
                     </a>
